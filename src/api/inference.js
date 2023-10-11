@@ -15,13 +15,17 @@ export default function get_inference(text, persona) {
     return axios
         .post(
             `${setup.api.endpoint}/${setup.config.model}`,
-            {"inputs": fill_prompt(text, persona)},
+            {
+                "inputs": fill_prompt(text, persona),
+                "parameters": {
+                    "return_full_text": false,
+                    "max_new_tokens": 200,
+                }
+
+            },
             {headers: {Authorization: `Bearer ${setup.api.bearer_token}`}}
         )
-        .then(response => {
-            return response.data[0].generated_text
-                .replace(fill_prompt(text, persona), "")
-        })
+        .then(response => response.data[0].generated_text)
         .catch(error => error.toString())
 }
 
