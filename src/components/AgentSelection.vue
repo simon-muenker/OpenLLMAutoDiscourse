@@ -6,7 +6,7 @@
       item-key="name"
   >
     <template #item="{ element }">
-      <div class="text-lg font-semibold text-slate-600 cursor-move">
+      <div class="sm:text-lg font-semibold text-slate-600 cursor-move">
         {{ element.label }}
       </div>
     </template>

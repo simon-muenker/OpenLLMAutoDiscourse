@@ -1,6 +1,6 @@
 <template>
   <button
-      class="font-medium text-white px-6 py-3 rounded-lg bg-green-500"
+      class="font-medium sm:text-lg text-white px-6 py-3 rounded-lg bg-green-500"
       @click="action"
   >
     <slot></slot>

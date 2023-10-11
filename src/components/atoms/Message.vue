@@ -9,7 +9,7 @@
     <template v-if="!text">
       <span class="font-bold animate-pulse">...</span>
     </template>
-    <span class="text-lg">
+    <span class="sm:text-lg">
       {{ text }}
     </span>
   </div>

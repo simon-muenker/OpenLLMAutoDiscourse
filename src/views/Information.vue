@@ -8,12 +8,12 @@
     </template>
   </Header>
 
-  <h2 class="text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
+  <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
     Prompting Configuration
   </h2>
   <vue-json-pretty :data="inference_setup"/>
 
-  <h2 class="text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
+  <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
     Agent Configuration
   </h2>
   <vue-json-pretty :data="get_agents()"/>
