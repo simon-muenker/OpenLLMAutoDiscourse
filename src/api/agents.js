@@ -1,18 +1,18 @@
 export default function get_agents() {
     return [
         {
-            "name": "language_model",
-            "label": "\uD83E\uDD16 Language Model",
+            "name": "plain_model",
+            "label": "\uD83E\uDD16 Plain Model",
             "persona": ""
         },
         {
-            "name": "agreeing_user",
-            "label": "\uD83D\uDE46 Agreeing User",
+            "name": "agreeing_agent",
+            "label": "\uD83D\uDE46 Agreeing Agent",
             "persona": "while imagining you are an individual agreeing with the content"
         },
         {
-            "name": "disagreeing_user",
-            "label": "\uD83D\uDE45 Disagreeing User",
+            "name": "disagreeing_agent",
+            "label": "\uD83D\uDE45 Disagreeing Agent",
             "persona": "while imagining you are an individual disagreeing with the content"
         },
         {
