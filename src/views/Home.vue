@@ -2,7 +2,7 @@
 
   <Header>
     <template v-slot:title>
-      💩 PostMe
+      ReplyRift
     </template>
     <template v-slot:excerpt>
       Explore how a Large Language Model, adapted to the behavior of different agents, responds to your message. Drag

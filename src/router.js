@@ -10,7 +10,7 @@ export default createRouter({
             name: "home",
             component: HomeView,
             meta: {
-                title: "Home",
+                title: "ReplyRift: AI Agent Conversation",
             },
         },
         {
@@ -18,7 +18,7 @@ export default createRouter({
             name: "information",
             component: InformationView,
             meta: {
-                title: "Information",
+                title: "ReplyRift: More Information",
             },
         },
     ],
