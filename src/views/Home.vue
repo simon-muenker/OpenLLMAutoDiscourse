@@ -20,8 +20,8 @@
     <div class="flex gap-6">
       <Button :action="reset">Reset</Button>
       <button
-          @click="download"
           class="underline underline-offset-4 text-slate-500"
+          @click="download_json(conversation, 'conversation')"
       >
         Download Conversation
       </button>
@@ -31,9 +31,6 @@
 </template>
 
 <script>
-import {v4 as uuid} from 'uuid'
-import {saveAs} from "file-saver"
-
 import Container from '@/components/atoms/Container.vue'
 import Button from "@/components/atoms/Button.vue"
 
@@ -44,6 +41,7 @@ import Conversation from "@/components/Conversation.vue"
 
 import get_inference from "@/api/inference"
 import get_agents from "@/api/agents"
+import {download_json} from "@/common";
 
 export default {
   components: {
@@ -86,20 +84,12 @@ export default {
     sync: function (selection) {
       this.conversation = selection
     },
-    download: function () {
-      saveAs(
-          new Blob(
-              [JSON.stringify(this.conversation)],
-              {type: 'application/json'}
-          ),
-          'conversation.' + uuid() + '.json'
-      )
-    },
     reset: function () {
       this.agents = get_agents()
       this.submitted = false
       this.conversation = []
-    }
+    },
+    download_json
   }
 }
 </script>
