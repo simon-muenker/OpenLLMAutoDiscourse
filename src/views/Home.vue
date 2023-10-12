@@ -40,7 +40,7 @@ import AgentSelection from "@/components/AgentSelection.vue"
 import Conversation from "@/components/Conversation.vue"
 
 import get_inference from "@/api/inference"
-import get_agents from "@/api/agents"
+import {agentConfig} from "@/api/agents"
 import {download_json} from "@/common";
 
 export default {
@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      agents: get_agents(),
+      agents: agentConfig,
       submitted: false,
       conversation: [],
     }
@@ -85,7 +85,7 @@ export default {
       this.conversation = selection
     },
     reset: function () {
-      this.agents = get_agents()
+      this.agents = agentConfig
       this.submitted = false
       this.conversation = []
     },
