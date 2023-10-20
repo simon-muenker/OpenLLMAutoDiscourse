@@ -85,8 +85,7 @@ export default {
     UserMessage,
     AgentSelection,
     Conversation,
-    Customization,
-    _
+    Customization
   },
   data() {
     return {
