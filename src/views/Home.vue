@@ -13,7 +13,7 @@
 
     <AgentSelection
         :agents="getAgentsStore().agents"
-        @update="(selection) => conversation = selection"
+        @update="update"
     />
     <UserMessage @submit="generate"/>
 
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import _ from "lodash"
+
 import PageHead from "@/components/atoms/PageHead.vue"
 import PageExcerpt from "@/components/atoms/PageExcerpt.vue"
 import Container from '@/components/atoms/Container.vue'
@@ -83,7 +85,8 @@ export default {
     UserMessage,
     AgentSelection,
     Conversation,
-    Customization
+    Customization,
+    _
   },
   data() {
     return {
@@ -92,6 +95,9 @@ export default {
     }
   },
   methods: {
+    update: function (selection) {
+      this.conversation = _.cloneDeep(selection)
+    },
     generate: function (message) {
       if (!message || this.conversation.length === 0) return
 
