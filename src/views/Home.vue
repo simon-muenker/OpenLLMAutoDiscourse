@@ -1,60 +1,92 @@
 <template>
 
-  <Header>
-    <template v-slot:title>
-      ReplyRift
-    </template>
-    <template v-slot:excerpt>
-      Explore how a Large Language Model, adapted to the behavior of different agents, responds to your message. Drag
-      and drop the agents into a desired order and send your message to generate the conversation.
-    </template>
-  </Header>
+  <PageHead>ReplyRift</PageHead>
 
   <template v-if="!submitted">
-    <AgentSelection :agents="agents" @update="sync"/>
+
+    <PageExcerpt>
+      Explore how a Large Language Model, adapted to the behavior of different agents, responds to your message. Drag
+      and drop the agents into a desired order and send your message to generate the conversation.
+    </PageExcerpt>
+
+    <Divider/>
+
+    <AgentSelection
+        :agents="getAgentsStore().agents"
+        @update="(selection) => conversation = selection"
+    />
     <UserMessage @submit="generate"/>
+
+    <Divider/>
+
+    <AgentCreate/>
+
+    <Divider/>
+
+    <Customization/>
+
   </template>
 
   <template v-if="submitted">
+
+    <Divider/>
+
     <Conversation :conversation="conversation"/>
+
     <div class="flex gap-6">
-      <Button :action="reset">Reset</Button>
+
+      <Button @click="reset">New Conversation</Button>
       <button
           class="underline underline-offset-4 text-slate-500"
-          @click="download_json(conversation, 'conversation')"
+          @click="downloadJSON(conversation, 'conversation')"
       >
         Download Conversation
       </button>
+
     </div>
+
+    <p class="text-sm font-normal text-slate-600 leading-relaxed mt-4">
+      When beginning a new conversation, all messages will be deleted. However, the agent list and configuration remain.
+      For a complete reset, reload the page.
+    </p>
+
   </template>
 
 </template>
 
 <script>
+import PageHead from "@/components/atoms/PageHead.vue"
+import PageExcerpt from "@/components/atoms/PageExcerpt.vue"
 import Container from '@/components/atoms/Container.vue'
 import Button from "@/components/atoms/Button.vue"
+import Divider from "@/components/atoms/Divider.vue"
 
-import Header from '@/components/atoms/Header.vue'
 import UserMessage from "@/components/UserMessage.vue"
-import AgentSelection from "@/components/AgentSelection.vue"
+import AgentSelection from "@/components/AgentSelect.vue"
 import Conversation from "@/components/Conversation.vue"
+import AgentCreate from "@/components/AgentCreate.vue"
+import Customization from "@/components/Customization.vue"
 
-import get_inference from "@/api/inference"
-import {agentConfig} from "@/api/agents"
-import {download_json} from "@/common";
+import {getAgentsStore} from "@/store"
+import {downloadJSON} from "@/common"
+import postInference from "@/api/inference"
+
 
 export default {
   components: {
+    PageExcerpt,
+    PageHead,
+    Divider,
     Button,
     Container,
-    Header,
+    AgentCreate,
     UserMessage,
     AgentSelection,
-    Conversation
+    Conversation,
+    Customization
   },
   data() {
     return {
-      agents: agentConfig,
       submitted: false,
       conversation: [],
     }
@@ -77,19 +109,16 @@ export default {
           return
         }
 
-        get_inference(this.conversation[0].message, agent.persona)
+        postInference(this.conversation[0].message, agent.persona)
             .then(reply => this.conversation[idx].message = reply)
       })
     },
-    sync: function (selection) {
-      this.conversation = selection
-    },
     reset: function () {
-      this.agents = agentConfig
       this.submitted = false
       this.conversation = []
     },
-    download_json
+    getAgentsStore,
+    downloadJSON
   }
 }
 </script>

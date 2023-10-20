@@ -1,43 +1,47 @@
 <template>
-  <Header>
-    <template v-slot:title>
-      Information
-    </template>
-    <template v-slot:excerpt>
-      The page contains the configuration for the API interaction (hugging face) and prompt/agent templates.
-    </template>
-  </Header>
 
-  <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
+  <PageHead>Information</PageHead>
+
+  <PageExcerpt>
+    The page contains the configuration for the API interaction (hugging face) and prompt/agent templates.
+  </PageExcerpt>
+
+  <Divider/>
+
+  <ContentHead>
     Inference Configuration
     <span
         class="cursor-pointer text-lg font-light text-slate-500"
-        @click="download_json(inferenceConfig, 'setup')"
+        @click="downloadJSON(getConfigStore().getConfig, 'setup')"
     >
       (download)
     </span>
-  </h2>
-  <vue-json-pretty :data="inferenceConfig"/>
+  </ContentHead>
+  <vue-json-pretty :data="getConfigStore().getConfig"/>
 
-  <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-800 mt-4 mb-2">
+  <Divider/>
+
+  <ContentHead>
     Agent Configuration
     <span
         class="cursor-pointer text-lg font-light text-slate-500"
-        @click="download_json(agentConfig, 'agents')"
+        @click="downloadJSON(getAgentsStore().getAgents, 'agents')"
     >
       (download)
     </span>
-  </h2>
-  <vue-json-pretty :data="agentConfig"/>
-
+  </ContentHead>
+  <vue-json-pretty :data="getAgentsStore().getAgents"/>
 </template>
+
 <script setup>
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 
-import Header from "@/components/atoms/Header.vue"
+import PageHead from "@/components/atoms/PageHead.vue"
+import PageExcerpt from "@/components/atoms/PageExcerpt.vue"
+import ContentHead from "@/components/atoms/ContentHead.vue"
+import Divider from "@/components/atoms/Divider.vue"
 
-import {agentConfig} from "@/api/agents"
-import {inferenceConfig} from "@/api/inference"
-import {download_json} from "@/common";
+import {getAgentsStore, getConfigStore} from "@/store"
+import {downloadJSON} from "@/common"
 </script>

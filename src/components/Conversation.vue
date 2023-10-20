@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 import Message from "@/components/atoms/Message.vue"
 
 export default {

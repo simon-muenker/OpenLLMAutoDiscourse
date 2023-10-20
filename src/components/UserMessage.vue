@@ -1,13 +1,10 @@
 <template>
   <div class="flex gap-3">
-      <textarea
-          v-model="message"
-          class="grow p-2.5 text-gray-900 bg-gray-50 rounded-md border border-gray-300"
-          placeholder="Type a message"
-          rows="2"
-      >
-      </textarea>
-    <Button :action="submit">
+    <Textarea
+        placeholder="Type a message"
+        @update="(text) => message = text"
+    />
+    <Button @click="submit">
       Post
     </Button>
   </div>
@@ -15,19 +12,21 @@
 
 <script>
 import Button from "@/components/atoms/Button.vue"
+import Textarea from "@/components/atoms/Textarea.vue"
 
 export default {
   components: {
+    Textarea,
     Button,
   },
   data() {
     return {
-      message: ''
+      message: ""
     }
   },
   methods: {
     submit() {
-      this.$emit('submit', this.message)
+      this.$emit("submit", this.message)
     }
   }
 }

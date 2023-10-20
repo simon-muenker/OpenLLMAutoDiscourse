@@ -16,7 +16,7 @@
       class="bg-orange-100 p-4 rounded-lg flex flex-col items-start gap-4 min-h-[16rem] max-h-fit"
       group="agents"
       item-key="name"
-      @change="update"
+      @change="$emit('update', selection)"
   >
     <template #item="{ element }">
       <Message :author="element.label"/>
@@ -34,21 +34,14 @@ export default {
     draggable,
     Message
   },
-  emits: [
-    "update"
-  ],
   props: {
     agents: Array
   },
   data() {
     return {
       selection: []
-    };
-  },
-  methods: {
-    update: function () {
-      this.$emit('update', this.selection);
     }
-  }
+  },
+  emits: ["update"]
 }
 </script>
