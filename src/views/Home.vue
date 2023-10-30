@@ -11,10 +11,7 @@
 
     <Divider/>
 
-    <AgentSelection
-        :agents="getAgentsStore().agents"
-        @update="update"
-    />
+    <AgentSelection @update="update"/>
     <UserMessage @submit="generate"/>
 
     <Divider/>
@@ -93,6 +90,11 @@ export default {
       conversation: [],
     }
   },
+  mounted() {
+    if (!getAgentsStore().hasAgents) {
+      getAgentsStore().fetch()
+    }
+  },
   methods: {
     update: function (selection) {
       this.conversation = _.cloneDeep(selection)
@@ -103,8 +105,8 @@ export default {
       this.submitted = true
 
       this.conversation.unshift({
-        'name': 'user',
-        'label': 'You',
+        'id': 'user',
+        'name': 'You',
         'message': message
       })
 
@@ -114,7 +116,7 @@ export default {
           return
         }
 
-        postInference(this.conversation[0].message, agent.persona)
+        postInference(this.conversation[0].message, agent.character)
             .then(reply => this.conversation[idx].message = reply)
       })
     },

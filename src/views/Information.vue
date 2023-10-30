@@ -31,6 +31,7 @@
     </span>
   </ContentHead>
   <vue-json-pretty :data="getAgentsStore().getAgents"/>
+
 </template>
 
 <script setup>

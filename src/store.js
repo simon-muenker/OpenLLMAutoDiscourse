@@ -5,10 +5,11 @@ import {getDefaultModel, getDefaultPrompt} from "@/api/config"
 
 export const getAgentsStore = defineStore('agents', {
     state: () => ({
-        agents: getDefaultAgents()
+        agents: null
     }),
     getters: {
         getAgents: (state) => state.agents,
+        hasAgents: (state) => state.agents != null
     },
     actions: {
         addAgent(agent) {
@@ -16,9 +17,10 @@ export const getAgentsStore = defineStore('agents', {
         },
         replace(newAgents) {
             this.agents = newAgents
+            console.log(this.agents)
         },
-        reset() {
-            this.agents = getDefaultAgents()
+        async fetch() {
+            getDefaultAgents().then(agents => this.replace(agents))
         }
     },
 })

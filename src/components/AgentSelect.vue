@@ -1,13 +1,13 @@
 <template>
   <draggable
       :group="{ name: 'agents', pull: 'clone', put: false }"
-      :list="agents"
+      :list="getAgentsStore().agents"
       class="flex flex-wrap gap-3"
       item-key="name"
   >
     <template #item="{ element }">
       <div class="sm:text-lg font-semibold text-slate-600 cursor-move">
-        {{ element.label }}
+        {{ element.name }}
       </div>
     </template>
   </draggable>
@@ -19,7 +19,7 @@
       @change="$emit('update', selection)"
   >
     <template #item="{ element }">
-      <Message :author="element.label"/>
+      <Message :author="element.name"/>
     </template>
   </draggable>
 </template>
@@ -29,19 +29,21 @@ import draggable from "vuedraggable"
 
 import Message from "@/components/atoms/Message.vue"
 
+import {getAgentsStore} from "@/store"
+
 export default {
   components: {
     draggable,
     Message
-  },
-  props: {
-    agents: Array
   },
   data() {
     return {
       selection: []
     }
   },
-  emits: ["update"]
+  emits: ["update"],
+  methods: {
+    getAgentsStore
+  }
 }
 </script>
