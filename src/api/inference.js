@@ -1,11 +1,12 @@
 import axios from "axios"
 import {getConfigStore} from "@/store"
 
-const TOKEN = "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"
+const TOKEN = "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"
 const ENDPOINT = "https://api-inference.huggingface.co/models"
 
 
 export default function postInference(text, persona) {
+    console.log(fillPrompt(text, persona))
     return axios
         .post(
             `${ENDPOINT}/${getConfigStore().model}`,
@@ -25,6 +26,6 @@ export default function postInference(text, persona) {
 
 function fillPrompt(text, persona) {
     return getConfigStore().prompt
-        .replace('{text}', text)
-        .replace('{persona}', persona)
+        .replace('{text}', text.trim())
+        .replace('{persona}', persona.trim())
 }
