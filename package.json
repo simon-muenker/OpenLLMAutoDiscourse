@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.18",
     "axios": "^1.5.1",
     "file-saver": "^2.0.5",
     "lodash": "^4.17.21",
@@ -15,8 +16,7 @@
     "uuid": "^9.0.1",
     "vue": "^3.3.4",
     "vue-json-pretty": "^2.2.4",
-    "vue-router": "^4.2.5",
-    "vuedraggable": "^4.1.0"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
