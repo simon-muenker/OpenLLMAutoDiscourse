@@ -20,3 +20,16 @@ export async function uploadJSON(file) {
         fileReader.readAsText(file)
     })
 }
+
+export function getFormattedDate() {
+    return new Date().toLocaleString('default', {
+            hour: 'numeric',
+            minute: 'numeric'
+        })
+        + ' · ' +
+        new Date().toLocaleString('default', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+        })
+}
