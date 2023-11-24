@@ -9,16 +9,16 @@
 
   <div class="flex flex-col sm:flex-row gap-3">
     <Input ref="name" label="Name" @update="(text) => name = text"/>
-    <Input ref="label" label="Label" @update="(text) => label = text"/>
+    <Input ref="icon" label="icon" @update="(text) => icon = text"/>
   </div>
 
-  <div class="flex gap-3">
+  <div class="flex flex-col sm:flex-row gap-3 sm:items-end">
     <Textarea
         ref="persona"
         placeholder="Add a persona"
         @update="(text) => persona = text"
     />
-    <Button :disabled="!canAdd" @click="add">Add</Button>
+    <Button :disabled="!canAdd" @click="add">Add Agent</Button>
   </div>
 
   <span class="mt-4 font-bold text-slate-600">Preview:</span>
@@ -52,15 +52,16 @@ export default {
   data() {
     return {
       name: "",
-      label: "",
-      persona: ""
+      icon: "",
+      persona: "",
     }
   },
   computed: {
     agent() {
       return {
-        "name": _.snakeCase(this.name),
-        "label": this.label,
+        "id": _.snakeCase(this.name),
+        "name": this.name,
+        "icon": this.icon,
         "persona": this.persona
       }
     },
@@ -68,7 +69,7 @@ export default {
       return !this.persona ? getConfigStore().getPrompt : getConfigStore().getPrompt.replace("{persona}", this.persona)
     },
     canAdd() {
-      return this.name && this.label && this.persona
+      return this.name && this.icon && this.persona
     }
   },
   methods: {
@@ -78,11 +79,11 @@ export default {
         getAgentsStore().addAgent(this.agent)
 
         this.$refs.name.reset()
-        this.$refs.label.reset()
+        this.$refs.icon.reset()
         this.$refs.persona.reset()
 
         this.name = ""
-        this.label = ""
+        this.icon = ""
         this.persona = ""
       }
     }

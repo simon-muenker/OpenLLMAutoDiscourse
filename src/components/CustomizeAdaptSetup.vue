@@ -1,5 +1,5 @@
 <template>
-  <ContentHead>Customize model/prompt, Replace agents:</ContentHead>
+  <ContentHead>Customize model/prompt or replace agents:</ContentHead>
   <ContentLine>
     Customize the conversation and change the LLM and base prompt, or upload a custom JSON file containing a list of new
     agents. Use the full Hugging Face name and check if the model is available under the free inferencing API. The
@@ -21,12 +21,13 @@
       <Textarea
           :defaultValue="configStore().getPrompt"
           @update="(newPrompt) => configStore().replacePrompt(newPrompt)"
+          rows="10"
       />
     </div>
 
     <div class="flex flex-col grow">
       <InputLabel>Replace Agent list (JSON file, see More Information)</InputLabel>
-      <div class="flex gap-3">
+      <div class="flex flex-col sm:flex-row gap-3">
         <div class="grow">
           <input
               accept=".json"
@@ -35,7 +36,7 @@
               @change="uploadAgents($event)"
           >
         </div>
-        <Button :disabled="!hasNewAgents" @click="replaceAgents()">Replace</Button>
+        <Button :disabled="!hasNewAgents" @click="replaceAgents()">Replace Agents</Button>
       </div>
     </div>
 

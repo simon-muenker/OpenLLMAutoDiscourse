@@ -1,11 +1,11 @@
 <template>
-  <div class="flex gap-3">
+  <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
     <Textarea
         placeholder="Type a message"
         @update="(text) => message = text"
     />
     <Button @click="submit">
-      Post
+      Start Thread
     </Button>
   </div>
 </template>
