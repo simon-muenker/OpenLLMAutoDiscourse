@@ -1,19 +1,12 @@
 <template>
-  <div class="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 w-full mt-12 text-slate-500">
-    <div class="flex gap-4 underline underline-offset-4">
-      <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-      <RouterLink :to="{ name: 'information' }">More Information</RouterLink>
-    </div>
-    <div>
+  <div
+      class="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 mt-16 text-sm text-slate-400"
+  >
+    <a href="https://www.twon-project.eu/" target="_blank">
+      TWON - TWin of Online Social Networks
+    </a>
+    <a href="https://www.linkedin.com/in/simon-muenker" target="_blank">
       Simon Münker, University of Trier
-    </div>
+    </a>
   </div>
 </template>
-
-<script>
-import {RouterLink} from "vue-router"
-
-export default {
-  components: {RouterLink}
-}
-</script>
