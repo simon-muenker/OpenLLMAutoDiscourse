@@ -4,6 +4,9 @@ import InteractView from "@/views/Interact.vue"
 import CustomizeView from "@/views/Customize.vue"
 import MoreView from "@/views/More.vue"
 
+import {Bars3BottomRightIcon, ChatBubbleLeftRightIcon} from "@heroicons/vue/24/outline"
+import {AdjustmentsVerticalIcon} from "@heroicons/vue/24/solid"
+
 export default createRouter({
         history: createWebHistory(import.meta.env.BASE_URL),
         routes: [
@@ -12,7 +15,8 @@ export default createRouter({
                 name: "interact",
                 component: InteractView,
                 meta: {
-                    title: "ReplyRift: Interact",
+                    title: 'Interact',
+                    icon: ChatBubbleLeftRightIcon
                 },
             },
             {
@@ -20,7 +24,8 @@ export default createRouter({
                 name: "customize",
                 component: CustomizeView,
                 meta: {
-                    title: "ReplyRift: Customize",
+                    title: 'Customize',
+                    icon: AdjustmentsVerticalIcon
                 },
             },
             {
@@ -28,7 +33,8 @@ export default createRouter({
                 name: "more",
                 component: MoreView,
                 meta: {
-                    title: "ReplyRift: More Information",
+                    title: 'More',
+                    icon: Bars3BottomRightIcon
                 },
             },
         ],
