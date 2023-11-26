@@ -25,8 +25,8 @@
   <template v-for="item in replies">
     <ThreadItem
         :id="item.id"
-        :name="item.name"
         :icon="item.icon"
+        :name="item.name"
         :text="item.message"
     />
   </template>
@@ -35,24 +35,21 @@
 <script>
 import _ from "lodash"
 
-import ThreadItem from "@/components/InteractThreadItem.vue"
-
 import {getFormattedDate} from "@/common"
+import {getThreadStore} from "@/stores/thread"
+
+import ThreadItem from "@/components/InteractThreadItem.vue"
 
 export default {
   components: {
     ThreadItem
   },
-  props: {
-    user_message: String,
-    thread_items: Array,
-  },
   computed: {
     post() {
-      return _.slice(this.thread_items, 0, 1)[0]
+      return _.first(getThreadStore().getPosts)
     },
     replies() {
-      return _.slice(this.thread_items, 1)
+      return _.slice(getThreadStore().getPosts, 1)
     },
     timestamp() {
       return getFormattedDate()

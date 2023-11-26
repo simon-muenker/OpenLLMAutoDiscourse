@@ -3,44 +3,37 @@
     <template v-for="element in agents">
       <Message
           :id="element.id"
-          :class="{ '!bg-green-200': this.selection.has(element) }"
+          :class="{ '!bg-green-200': getThreadStore().getAgents.has(element) }"
           :icon="element.icon"
           :name="element.name"
           :text="'Persona: ' + element.persona"
-          @click="() => toggle(element)"
           class="cursor-pointer"
+          @click="() => toggle(element)"
       />
     </template>
   </div>
 </template>
 
 <script>
+import {getAgentsStore} from "@/stores/agents"
+import {getThreadStore} from "@/stores/thread"
+
+
 import Message from "@/components/InteractThreadItem.vue"
 
 export default {
   components: {
     Message
   },
-  props: {
-    agents: Array
-  },
   data() {
     return {
-      selection: new Set()
+      'agents': getAgentsStore().getAgents
     }
   },
-  emits: ["update"],
   methods: {
+    getThreadStore,
     toggle: function (agent) {
-
-      if (this.selection.has(agent)) {
-        this.selection.delete(agent)
-
-      } else {
-        this.selection.add(agent)
-      }
-
-      this.$emit('update', Array.from(this.selection))
+      getThreadStore().updateAgents(agent)
     }
   }
 }
