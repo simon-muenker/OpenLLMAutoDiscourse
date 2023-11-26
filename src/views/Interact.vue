@@ -11,10 +11,7 @@
 
     <Divider/>
 
-    <InteractAgentSelect
-        :agents="getAgentsStore().agents"
-        @update="update"
-    />
+    <InteractAgentSelect/>
 
     <Divider/>
 
@@ -26,9 +23,9 @@
 
     <Divider/>
 
-    <Thread :thread_items="thread_items"/>
+    <InteractThread/>
 
-    <template v-if="!stopped">
+    <template v-if="running">
       <span class="text-6xl font-bold text-slate-500 animate-pulse text-center">...</span>
     </template>
 
@@ -36,15 +33,16 @@
 
     <div class="flex gap-6">
 
-      <Button @click="reset">New Conversation</Button>
 
-      <template v-if="!stopped">
-        <Button class="bg-rose-500" @click="stop">Stop</Button>
-      </template>
+      <Button :class="[!running ? '!bg-emerald-500' : '!bg-rose-500']" @click="toggleRunning">
+        {{ !running ? 'Start' : 'Stop' }}
+      </Button>
+
+      <Button @click="reset">New Conversation</Button>
 
       <button
           class="underline underline-offset-4 text-slate-500"
-          @click="downloadJSON(thread_items, 'thread')"
+          @click="downloadJSON(getThreadStore().getPosts(), 'thread')"
       >
         Download Thread
       </button>
@@ -57,6 +55,10 @@
     </p>
 
   </template>
+
+  <p class="text-xs font-normal text-slate-600 leading-relaxed mt-4">
+    Current Endpoint: {{ getConfigStore().getIntegration.label }}
+  </p>
 
 </template>
 
@@ -71,11 +73,13 @@ import Divider from "@/components/atoms/Divider.vue"
 
 import InteractUserMessage from "@/components/InteractUserMessage.vue"
 import InteractAgentSelect from "@/components/InteractAgentSelect.vue"
-import Thread from "@/components/InteractThread.vue"
+import InteractThread from "@/components/InteractThread.vue"
 
-import {getAgentsStore} from "@/store"
+import {getConfigStore} from "@/stores/config"
+import {getThreadStore} from "@/stores/thread"
+import {getAgentsStore} from "@/stores/agents"
+
 import {downloadJSON} from "@/common"
-import postInference from "@/api/inference"
 
 
 export default {
@@ -87,68 +91,56 @@ export default {
     Container,
     InteractUserMessage,
     InteractAgentSelect,
-    Thread,
+    InteractThread,
   },
   data() {
     return {
       submitted: false,
-      stopped: false,
-      thread_items: [],
-      agents: [],
+      running: false,
     }
   },
+  mounted() {
+    this.reset()
+  },
+  unmounted() {
+    this.running = false
+  },
   methods: {
-    update: function (selection) {
-      this.agents = _.cloneDeep(selection)
-    },
     start_thread: async function (message) {
-      if (!message || this.agents.length === 0) return
+      if (!message || getThreadStore().getAgents.length === 0) return
       this.submitted = true
+      this.running = true
 
-      this.thread_items.unshift({
-        'id': 'user',
-        'name': 'You',
-        'icon': '🗣️',
-        'message': message
-      })
+      getThreadStore().addPost(
+          'user',
+          'You',
+          '🗣',
+          message
+      )
 
-      while (!this.stopped) {
-        let current_agent = this.get_random_agent()
-        await this.generate_response(current_agent)
-
-        if (this.thread_items.length > 25) this.stop()
-      }
+      await this.generateMessages()
     },
-    get_random_agent: function () {
-      let agent = _.sample(this.agents)
-
-      while (agent.id === this.thread_items[this.thread_items.length - 1].id) {
-        agent = _.sample(this.agents)
+    generateMessages: async function () {
+      while (this.running) {
+        let agent = getThreadStore().getRandomAgent
+        await getThreadStore().queryNextPost(agent, getConfigStore().getIntegration.name)
+        await new Promise(resolve => setTimeout(resolve, _.random(500, 2000)))
+        if (getThreadStore().getPosts.length > 25) this.running = false
       }
-
-      return agent
-    },
-    generate_response: async function (agent) {
-      await postInference(this.thread_items[this.thread_items.length - 1].message, agent.persona)
-          .then(reply => this.thread_items.push({
-            'id': agent.id,
-            'name': agent.name,
-            'icon': agent.icon,
-            'message': reply
-          }))
-
-      await new Promise(resolve => setTimeout(resolve, _.random(500, 2000)))
     },
     reset: function () {
       this.submitted = false
-      this.stopped = false
-      this.thread_items = []
-      this.agents = []
+      this.running = false
+
+      getThreadStore().reset()
     },
-    stop: function () {
-      this.stopped = true
+    toggleRunning: function () {
+      this.running = !this.running
+      if (this.running) this.generateMessages()
     },
+    getThreadStore,
     getAgentsStore,
+    getConfigStore,
     downloadJSON
   }
 }
