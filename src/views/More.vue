@@ -42,6 +42,8 @@ import PageExcerpt from "@/components/atoms/PageExcerpt.vue"
 import ContentHead from "@/components/atoms/ContentHead.vue"
 import Divider from "@/components/atoms/Divider.vue"
 
-import {getAgentsStore, getConfigStore} from "@/store"
+import {getConfigStore} from "@/stores/config"
+import {getAgentsStore} from "@/stores/agents"
+
 import {downloadJSON} from "@/common"
 </script>

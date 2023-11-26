@@ -37,7 +37,8 @@ import Textarea from "@/components/atoms/Textarea.vue"
 import Input from "@/components/atoms/Input.vue"
 import Button from "@/components/atoms/Button.vue"
 
-import {getAgentsStore, getConfigStore} from "@/store"
+import {getConfigStore} from "@/stores/config"
+import {getAgentsStore} from "@/stores/agents"
 
 
 export default {
