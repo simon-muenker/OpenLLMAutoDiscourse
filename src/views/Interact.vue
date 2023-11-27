@@ -42,7 +42,7 @@
 
       <button
           class="underline underline-offset-4 text-slate-500"
-          @click="downloadJSON(getThreadStore().getPosts(), 'thread')"
+          @click="downloadJSON(getThreadStore().getPosts, 'thread')"
       >
         Download Thread
       </button>
