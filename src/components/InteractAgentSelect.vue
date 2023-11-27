@@ -6,7 +6,7 @@
           :class="{ '!bg-green-200': getThreadStore().getAgents.has(element) }"
           :icon="element.icon"
           :name="element.name"
-          :text="'Persona: ' + element.persona"
+          :text="element.summary"
           class="cursor-pointer"
           @click="() => toggle(element)"
       />
