@@ -16,7 +16,7 @@
           class="rounded-lg p-2.5 text-slate-700 bg-slate-100 cursor-pointer leading-loose"
           @change="changeIntegration()"
       >
-        <option value="huggingFace">Hugging Face (Falcon-7b-instruct)</option>
+        <option value="huggingFace">Hugging Face (Mistral-7B-Instruct)</option>
         <option value="openAI">OpenAI (GPT-3.5-turbo)</option>
       </select>
 

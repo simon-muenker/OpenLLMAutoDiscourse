@@ -3,8 +3,8 @@ export const getDefaultModel = () => ("tiiuae/falcon-7b-instruct")
 export const getIntegrations = () => ({
     huggingFace: {
         name: "huggingFace",
-        label: "Hugging Face (Falcon-7b-instruct)",
-        model: "tiiuae/falcon-7b-instruct",
+        label: "Hugging Face (Mistral-7B-Instruct)",
+        model: "mistralai/Mistral-7B-Instruct-v0.1",
         token: "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"
     },
     openAI: {
