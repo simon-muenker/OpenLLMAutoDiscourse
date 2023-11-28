@@ -1,6 +1,8 @@
 import {defineStore} from "pinia"
 import _ from "lodash"
+
 import {GPTInference, hfInference} from "@/inference"
+import {getConfigStore} from "@/stores/config"
 
 export const getThreadStore = defineStore('thread', {
     state: () => ({
@@ -39,14 +41,14 @@ export const getThreadStore = defineStore('thread', {
             })
         },
         async queryNextPost(agent, integration) {
-
-            let thread_text = 'Post: ' + _.first(this.getPosts).message + '\n'
-            _.takeRight(this.getPosts.slice(1), 5).forEach(item => thread_text += 'Reply: ' + item.message + '\n');
-
             await {
                 huggingFace: hfInference,
                 openAI: GPTInference
-            }[integration](thread_text, agent.persona)
+            }[integration](fillPrompt(
+                agent.persona,
+                createHistory(this.getPosts, agent),
+                createThread(this.getPosts, agent),
+            ))
                 .then(reply => this.addPost(
                     agent.id,
                     agent.name,
@@ -60,3 +62,35 @@ export const getThreadStore = defineStore('thread', {
         }
     },
 })
+
+function fillPrompt(persona, history, thread) {
+    prompt = getConfigStore().getPrompt
+        .replace('{persona}', persona.trim())
+        .replace('{history}', history.trim())
+        .replace('{thread}', thread.trim())
+
+    console.log(prompt)
+    return prompt
+}
+
+function createThread(posts, agent) {
+    let thread = `Post by ${_.first(posts).id}: ${_.first(posts).message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
+
+    _.takeRight(posts.slice(1).filter(item => item.id !== agent.id), 5).forEach(
+        item => thread += `Reply by ${item.id}: ${item.message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
+    )
+
+    return thread
+}
+
+function createHistory(posts, agent) {
+    let history = ""
+
+    posts.filter(item => item.id === agent.id).forEach(
+        item => history += `You posted: ${item.message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
+    )
+
+    if (history.length === 0) history += "You have not interacted in the thread yet."
+
+    return history
+}

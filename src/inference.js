@@ -2,13 +2,12 @@ import OpenAI from 'openai'
 import {textGeneration} from '@huggingface/inference'
 import {getConfigStore} from "@/stores/config"
 
-const openai_TOKEN = "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"
 
-export function hfInference(text, persona) {
+export function hfInference(prompt) {
     return textGeneration({
         accessToken: getConfigStore().integration.token,
         model: getConfigStore().integration.model,
-        inputs: fillPrompt(text, persona),
+        inputs: prompt,
         parameters: {
             return_full_text: false,
             max_new_tokens: 255
@@ -18,20 +17,15 @@ export function hfInference(text, persona) {
         .catch(error => error.toString())
 }
 
-export function GPTInference(text, persona) {
+export function GPTInference(prompt) {
     return new OpenAI({
         apiKey: getConfigStore().integration.token,
         dangerouslyAllowBrowser: true
     }).chat.completions.create({
-        messages: [{role: 'user', content: fillPrompt(text, persona)}],
+        messages: [{role: 'user', content: prompt}],
         model: getConfigStore().integration.model,
     })
         .then(response => response.choices[0].message.content)
         .catch(error => error.toString())
 }
 
-function fillPrompt(text, persona) {
-    return getConfigStore().prompt
-        .replace('{text}', text.trim())
-        .replace('{persona}', persona.trim())
-}
