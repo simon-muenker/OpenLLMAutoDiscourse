@@ -76,7 +76,7 @@ function fillPrompt(persona, history, thread) {
 function createThread(posts, agent) {
     let thread = `Post by ${_.first(posts).id}: ${_.first(posts).message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
 
-    _.takeRight(posts.slice(1).filter(item => item.id !== agent.id), 5).forEach(
+    _.takeRight(posts.slice(1).filter(item => item.id !== agent.id), 2).forEach(
         item => thread += `Reply by ${item.id}: ${item.message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
     )
 
