@@ -1,14 +1,8 @@
 # TWON: Threads - A Generative Agent Demo
 
-This template should help get you started developing with Vue 3 in Vite.
+The repository contains an interactive demo to showcase the behavior of generative agents in a social media thread. The agents are powered by large language models inferenced through APIs (Hugging Face, OpenAi). Further, users can customize the prompt-based interaction or add custom agents for their discourses.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Note: Currently, the work is an alpha version and will undergo breaking changes during the development.
 
 ## Project Setup
 
