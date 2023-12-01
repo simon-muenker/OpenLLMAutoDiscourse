@@ -1,6 +1,6 @@
 <template>
 
-  <PageHead>ReplyRift</PageHead>
+  <PageHead>TWON: Threads</PageHead>
 
   <template v-if="!submitted">
 
