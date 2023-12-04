@@ -15,7 +15,7 @@
 
     <Divider/>
 
-    <InteractUserMessage @submit="start_thread"/>
+    <InteractUserMessage @submittedUserMessage="start_thread"/>
 
   </template>
 
@@ -42,7 +42,7 @@
 
       <button
           class="underline underline-offset-4 text-slate-500"
-          @click="downloadJSON(getThreadStore().getPosts, 'thread')"
+          @click="downloadJSON(getThreadStore().getThread, 'thread')"
       >
         Download Thread
       </button>
@@ -106,18 +106,10 @@ export default {
     this.running = false
   },
   methods: {
-    start_thread: async function (message) {
-      if (!message || getThreadStore().getAgents.length === 0) return
+    start_thread: async function () {
+      if (getThreadStore().getAgents.length === 0) return
       this.submitted = true
       this.running = true
-
-      getThreadStore().addPost(
-          'user',
-          'You',
-          '🗣',
-          message
-      )
-
       await this.generateMessages()
     },
     generateMessages: async function () {
@@ -125,7 +117,7 @@ export default {
         let agent = getThreadStore().getRandomAgent
         await getThreadStore().queryNextPost(agent, getConfigStore().getIntegration.name)
         await new Promise(resolve => setTimeout(resolve, _.random(500, 2000)))
-        if (getThreadStore().getPosts.length > 25) this.running = false
+        if (getThreadStore().getThread.length > 25) this.running = false
       }
     },
     reset: function () {

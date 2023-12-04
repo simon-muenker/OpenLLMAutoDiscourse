@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
     <Textarea
+        v-model="message"
         placeholder="Type a message"
-        @update="(text) => message = text"
     />
-    <Button @click="submit">
+    <Button :disabled="isSubmitDisabled" @click="submit">
       Start Thread
     </Button>
   </div>
@@ -13,6 +13,7 @@
 <script>
 import Button from "@/components/atoms/Button.vue"
 import Textarea from "@/components/atoms/Textarea.vue"
+import {getThreadStore} from "@/stores/thread"
 
 export default {
   components: {
@@ -21,12 +22,29 @@ export default {
   },
   data() {
     return {
-      message: ""
+      message: {
+        type: String,
+        default: ""
+      }
+    }
+  },
+  computed: {
+    isSubmitDisabled() {
+      return !this.message;
     }
   },
   methods: {
     submit() {
-      this.$emit("submit", this.message)
+      if (!this.message) return
+
+      getThreadStore().addPost(
+          'user',
+          'You',
+          '🗣',
+          this.message
+      )
+
+      this.$emit("submittedUserMessage")
     }
   }
 }

@@ -46,10 +46,10 @@ export default {
   },
   computed: {
     post() {
-      return _.first(getThreadStore().getPosts)
+      return _.first(getThreadStore().getThread)
     },
     replies() {
-      return _.slice(getThreadStore().getPosts, 1)
+      return _.slice(getThreadStore().getThread, 1)
     },
     timestamp() {
       return getFormattedDate()
