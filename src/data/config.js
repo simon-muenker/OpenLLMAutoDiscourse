@@ -1,5 +1,3 @@
-export const getDefaultModel = () => ("tiiuae/falcon-7b-instruct")
-
 export const getIntegrations = () => ({
     huggingFace: {
         name: "huggingFace",
