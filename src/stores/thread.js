@@ -73,20 +73,20 @@ function fillPrompt(persona, history, thread) {
     return prompt
 }
 
-function createThread(posts, agent) {
+function createThread(posts, agent, n = 2) {
     let thread = `Post by ${_.first(posts).id}: ${_.first(posts).message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
 
-    _.takeRight(posts.slice(1).filter(item => item.id !== agent.id), 2).forEach(
+    _.takeRight(posts.slice(1).filter(item => item.id !== agent.id), n).forEach(
         item => thread += `Reply by ${item.id}: ${item.message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
     )
 
     return thread
 }
 
-function createHistory(posts, agent) {
+function createHistory(posts, agent, n = 2) {
     let history = ""
 
-    posts.filter(item => item.id === agent.id).forEach(
+    _.takeRight(posts.filter(item => item.id === agent.id), n).forEach(
         item => history += `You posted: ${item.message.replace(/(\r\n|\n|\r)/gm, "")}\n\n`
     )
 
