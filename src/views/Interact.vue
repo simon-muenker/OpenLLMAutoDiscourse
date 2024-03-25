@@ -107,8 +107,6 @@ export default {
   },
   methods: {
     start_thread: async function () {
-      console.log(Object.values(getThreadStore().getAgents).length)
-      if (getThreadStore().getAgents.length < 2) return
       this.submitted = true
       this.running = true
       await this.generateMessages()
