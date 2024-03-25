@@ -31,6 +31,7 @@ import {getThreadStore} from "@/stores/thread"
 
 import {getExamplePosts} from "@/data/posts"
 
+
 export default {
   components: {
     Textarea,
@@ -46,12 +47,12 @@ export default {
   },
   computed: {
     isSubmitDisabled() {
-      return !this.message;
+      return !this.message || getThreadStore().agents.size === 0;
     }
   },
   methods: {
     submit() {
-      if (!this.message) return
+      if (self.isSubmitDisabled) return
 
       getThreadStore().addPost(
           'user',
