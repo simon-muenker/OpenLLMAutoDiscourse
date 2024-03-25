@@ -5,7 +5,7 @@
     <a href="https://www.twon-project.eu/" target="_blank">
       TWON - TWin of Online Social Networks
     </a>
-    <a class="text-slate-600" href="https://github.com/smnmnkr/TWON-Threads" target="_blank">
+    <a class="text-slate-600" href="https://github.com/simon-muenker/TWON-Threads" target="_blank">
       Github
     </a>
     <a href="https://www.linkedin.com/in/simon-muenker" target="_blank">
