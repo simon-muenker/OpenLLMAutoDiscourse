@@ -29,7 +29,7 @@ import draggable from "vuedraggable"
 
 import Message from "@/components/atoms/Message.vue"
 
-import {getAgentsStore} from "@/store"
+import {getAgentsStore} from "@/stores/agents"
 
 export default {
   components: {

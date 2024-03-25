@@ -66,7 +66,7 @@ import Conversation from "@/components/Conversation.vue"
 import AgentCreate from "@/components/AgentCreate.vue"
 import Customization from "@/components/Customization.vue"
 
-import {getAgentsStore} from "@/store"
+import {getAgentsStore} from "@/stores/agents"
 import {downloadJSON} from "@/common"
 import postInference from "@/api/inference"
 
