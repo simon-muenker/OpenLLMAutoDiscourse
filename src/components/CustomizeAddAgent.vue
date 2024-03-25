@@ -8,15 +8,21 @@
   </ContentLine>
 
   <div class="flex flex-col sm:flex-row gap-3">
-    <Input ref="name" label="Name" @update="(text) => name = text"/>
-    <Input ref="icon" label="icon" @update="(text) => icon = text"/>
+    <Input
+        placeholder="Name"
+        @input="event => {name = event.target.value}"
+    />
+    <Input
+        placeholder="Icon"
+        @input="event => {icon = event.target.value}"
+    />
   </div>
 
   <div class="flex flex-col sm:flex-row gap-3 sm:items-end">
     <Textarea
-        ref="persona"
+        :value="persona"
         placeholder="Add a persona"
-        @update="(text) => persona = text"
+        @input="event => {persona = event.target.value}"
     />
     <Button :disabled="!canAdd" @click="add">Add Agent</Button>
   </div>
@@ -78,10 +84,6 @@ export default {
     add() {
       if (this.canAdd) {
         getAgentsStore().addAgent(this.agent)
-
-        this.$refs.name.reset()
-        this.$refs.icon.reset()
-        this.$refs.persona.reset()
 
         this.name = ""
         this.icon = ""
