@@ -8,7 +8,7 @@ export function inference(model, prompt) {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
-        mode: "cors",
+        mode: "no-cors",
         cache: "no-cache",
     })
         .then((response) => response.json())
