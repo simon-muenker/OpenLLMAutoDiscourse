@@ -1,32 +1,28 @@
 import {defineStore} from "pinia"
-import {getDefaultPrompt, getIntegrations} from "@/data/config"
+import {getDefaultPrompt, getModels} from "@/data/config"
 
 export const getConfigStore = defineStore('config', {
     state: () => ({
-        integration: getIntegrations().huggingFace,
+        model: getModels()[0],
         prompt: getDefaultPrompt()
     }),
     getters: {
         getConfig: (state) => ({
-            "integration": state.integration,
+            "model": state.model,
             "prompt": state.prompt
         }),
-        getIntegration: (state) => state.integration,
+        getModel: (state) => state.model,
         getPrompt: (state) => state.prompt,
     },
     actions: {
-        changeIntegration(provider) {
-            this.integration = getIntegrations()[provider]
-        },
-        setIntegrationToken(token) {
-            this.integration.token = token
+        replaceModel(model) {
+            this.model = model
         },
         replacePrompt(newPrompt) {
             this.prompt = newPrompt
-
         },
         reset() {
-            this.integration = getIntegrations().huggingFace
+            this.model = getModels()[0]
             this.prompt = getDefaultPrompt()
         }
     },

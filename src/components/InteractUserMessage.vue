@@ -29,6 +29,8 @@ import Button from "@/components/atoms/Button.vue"
 import Textarea from "@/components/atoms/Textarea.vue"
 import {getThreadStore} from "@/stores/thread"
 
+import {getExamplePosts} from "@/data/posts"
+
 export default {
   components: {
     Textarea,
@@ -39,16 +41,7 @@ export default {
     return {
       message: "",
       exampleMessage: 0,
-      examples: [
-        {
-          name: 'Republicans Vote Behavior',
-          message: 'It\'s funny how whenever people have the opportunity to vote, Republicans do poorly.'
-        },
-        {
-          name: 'Trump Curt Decision',
-          message: 'This is a bad decision. Trump incited violence and should be banned. Shame on Colorado.'
-        },
-      ]
+      examples: getExamplePosts()
     }
   },
   computed: {

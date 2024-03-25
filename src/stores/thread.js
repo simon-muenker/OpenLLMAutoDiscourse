@@ -1,7 +1,7 @@
 import {defineStore} from "pinia"
 import _ from "lodash"
 
-import {GPTInference, hfInference} from "@/inference"
+import {inference} from "@/inference"
 import createPrompt from "@/prompt"
 
 export const getThreadStore = defineStore('thread', {
@@ -40,18 +40,13 @@ export const getThreadStore = defineStore('thread', {
                 'message': message
             })
         },
-        async queryNextPost(agent, integration) {
-            console.log(createPrompt(this.getThread, agent))
-
-            await {
-                huggingFace: hfInference,
-                openAI: GPTInference
-            }[integration](createPrompt(this.getThread, agent))
-                .then(reply => this.addPost(
+        async queryNextPost(model, agent) {
+            await inference(model, createPrompt(this.getThread, agent))
+                .then(response => this.addPost(
                     agent.id,
                     agent.name,
                     agent.icon,
-                    reply
+                    response.response
                 ))
         },
         reset() {

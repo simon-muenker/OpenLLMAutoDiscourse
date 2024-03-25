@@ -57,7 +57,7 @@
   </template>
 
   <p class="text-xs font-normal text-slate-600 leading-relaxed mt-4">
-    Current Endpoint: {{ getConfigStore().getIntegration.label }}
+    current model: {{ getConfigStore().getModel }}
   </p>
 
 </template>
@@ -107,7 +107,8 @@ export default {
   },
   methods: {
     start_thread: async function () {
-      if (getThreadStore().getAgents.length === 0) return
+      console.log(Object.values(getThreadStore().getAgents).length)
+      if (getThreadStore().getAgents.length < 2) return
       this.submitted = true
       this.running = true
       await this.generateMessages()
@@ -115,7 +116,7 @@ export default {
     generateMessages: async function () {
       while (this.running) {
         let agent = getThreadStore().getRandomAgent
-        await getThreadStore().queryNextPost(agent, getConfigStore().getIntegration.name)
+        await getThreadStore().queryNextPost(getConfigStore().getModel, agent)
         await new Promise(resolve => setTimeout(resolve, _.random(500, 2000)))
         if (getThreadStore().getThread.length > 25) this.running = false
       }

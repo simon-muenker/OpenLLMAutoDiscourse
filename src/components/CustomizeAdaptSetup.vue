@@ -9,26 +9,19 @@
   <div class="flex flex-col gap-3">
 
     <div class="flex flex-col grow">
-      <InputLabel>Change Model (Falcon-7b | GPT-3.5):</InputLabel>
+      <InputLabel>Change Model:</InputLabel>
 
       <select
-          v-model="integration"
+          v-model="model"
           class="rounded-lg p-2.5 text-slate-700 bg-slate-100 cursor-pointer leading-loose"
-          @change="changeIntegration"
+          @change="(event) => getConfigStore().replaceModel(event.target.value)"
       >
-        <option v-for="integration in getIntegrations()" :value="integration.name">
-          {{ integration.label }}
+        <option v-for="model in getModels()" :value="model">
+          {{ model }}
         </option>
       </select>
 
     </div>
-
-    <InputLabel>API-Key:</InputLabel>
-    <Input
-        :value="getConfigStore().getIntegration.token"
-        placeholder="Add your API-Key"
-        @input="(event) => getConfigStore().setIntegrationToken(event.target.value)"
-    />
 
     <div class="flex flex-col grow">
       <InputLabel>Change Prompt (must contain <code>{persona}|{text}</code> to replace):</InputLabel>
@@ -68,7 +61,7 @@ import {getConfigStore} from "@/stores/config"
 import {getAgentsStore} from "@/stores/agents"
 
 import {uploadJSON} from "@/common"
-import {getIntegrations} from "@/data/config"
+import {getModels} from "@/data/config"
 
 
 export default {
@@ -83,7 +76,7 @@ export default {
   data() {
     return {
       newAgents: [],
-      integration: getConfigStore().getIntegration.name,
+      model: getConfigStore().getModel,
     }
   },
   computed: {
@@ -95,9 +88,6 @@ export default {
     async uploadAgents(event) {
       this.newAgents = await uploadJSON(event.target.files[0])
     },
-    changeIntegration() {
-      getConfigStore().changeIntegration(this.integration)
-    },
     replaceAgents() {
       if (this.hasNewAgents) {
         getAgentsStore().replace(this.newAgents)
@@ -105,7 +95,7 @@ export default {
       }
     },
     getConfigStore,
-    getIntegrations
+    getModels
   }
 }
 </script>

@@ -1,19 +1,12 @@
 // noinspection SpellCheckingInspection
 
-export const getIntegrations = () => ({
-    huggingFace: {
-        name: "huggingFace",
-        label: "Hugging Face (Mistral-7B-Instruct)",
-        model: "mistralai/Mistral-7B-Instruct-v0.1",
-        token: "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"
-    },
-    openAI: {
-        name: "openAI",
-        label: "OpenAI (GPT-3.5-turbo)",
-        model: "gpt-3.5-turbo",
-        token: ""
-    }
-})
+export const getModels = () => ([
+    "mixtral:8x7b", "mistral:v0.2",
+    "llama2:7b", "llama2:14b", "llama2:70b",
+    "qwen:7b", "qwen:14b", "qwen:72b",
+    "falcon:7b", "falcon:40b",
+    "gemma:7b",
+])
 
 export const getDefaultPrompt = () => (`
 I want you to act as a social media user. You will engage in political and social discussions using an informal tone and brief sentences.
@@ -28,7 +21,7 @@ Your recent interactions in the network are as follows:
 
 -----------------
 
-Reply to the following thread while considering your history and character. Your response must not exceed 255 characters. 
+Reply to the following thread while considering your history and character. Make use of urban dictionary slang. Hide your personal information. Your response must not exceed 255 characters. 
 
 {thread}
 
