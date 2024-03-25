@@ -14,6 +14,8 @@ export const getThreadStore = defineStore('thread', {
         getThread: (state) => state.thread,
 
         getRandomAgent: (state) => {
+            if (state.agents.size === 1) return _.last(Array.from(state.agents))
+
             let agent = _.sample(Array.from(state.agents))
 
             while (agent.id === _.last(state.thread).id) {
