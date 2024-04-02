@@ -1,11 +1,11 @@
 // noinspection SpellCheckingInspection
 
 export const getModels = () => ([
-    "mixtral:8x7b", "mistral:v0.2",
-    "llama2:7b", "llama2:14b", "llama2:70b",
-    "qwen:7b", "qwen:14b", "qwen:72b",
-    "falcon:7b", "falcon:40b",
-    "gemma:7b",
+    'mixtral:8x7b-instruct-v0.1-q6_K',
+    'mistral:7b-instruct-v0.2-q6_K',
+    'falcon:40b-instruct-q5_1',
+    'gemma:7b-instruct-q6_K',
+    'llama2:70b-chat-q6_K',
 ])
 
 export const getDefaultPrompt = () => (`
