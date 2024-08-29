@@ -1,7 +1,7 @@
 import {defineStore} from "pinia"
 import _ from "lodash"
 
-import {inference} from "@/inference"
+import {inference, metrics} from "@/inference"
 import createPrompt from "@/prompt"
 
 export const getThreadStore = defineStore('thread', {
@@ -34,22 +34,26 @@ export const getThreadStore = defineStore('thread', {
                 this.agents.add(agent)
             }
         },
-        addPost(id, name, icon, message) {
+        addPost(id, name, icon, message, metrics=null) {
             this.thread.push({
                 'id': id,
                 'name': name,
                 'icon': icon,
-                'message': message
+                'message': message,
+                'metrics': metrics
             })
         },
         async queryNextPost(model, agent) {
-            await inference(model, createPrompt(this.getThread, agent))
-                .then(response => this.addPost(
-                    agent.id,
-                    agent.name,
-                    agent.icon,
-                    response.response
-                ))
+            let message = await inference(model, createPrompt(this.getThread, agent)).then(response => response.response)
+            let met = await metrics([message]).then(response => response['predictions'][0]['results'])
+
+            this.addPost(
+                agent.id,
+                agent.name,
+                agent.icon,
+                message,
+                met
+            )
         },
         reset() {
             this.agents = new Set()

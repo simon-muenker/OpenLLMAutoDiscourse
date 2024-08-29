@@ -16,6 +16,11 @@
       <span>
       {{ text }}
     </span>
+    <div class="text-sm mt-2">
+      <template v-for="item in metrics">
+      {{ item }}<br>
+    </template>
+    </div>
     </div>
   </div>
 </template>
@@ -26,6 +31,7 @@ export default {
     name: String,
     icon: String,
     text: String,
+    metrics: Object
   }
 }
 </script>

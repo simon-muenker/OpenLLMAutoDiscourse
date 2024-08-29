@@ -16,7 +16,7 @@
           class="rounded-lg p-2.5 text-slate-700 bg-slate-100 cursor-pointer leading-loose"
           @change="(event) => getConfigStore().replaceModel(event.target.value)"
       >
-        <option v-for="model in getModels()" :value="model">
+        <option v-for="model in model_selection" :value="model">
           {{ model }}
         </option>
       </select>
@@ -63,7 +63,6 @@ import {getAgentsStore} from "@/stores/agents"
 import {uploadJSON} from "@/common"
 import {getModels} from "@/data/config"
 
-
 export default {
   components: {
     InputLabel,
@@ -77,12 +76,16 @@ export default {
     return {
       newAgents: [],
       model: getConfigStore().getModel,
+      model_selection: []
     }
   },
   computed: {
     hasNewAgents() {
       return this.newAgents.length > 0
     }
+  },
+  async mounted() {
+    this.model_selection = await getModels()
   },
   methods: {
     async uploadAgents(event) {

@@ -1,13 +1,18 @@
 // noinspection SpellCheckingInspection
 
-export const getModels = () => ([
-    'mixtral:8x7b-instruct-v0.1-q6_K',
-    'mistral:7b-instruct-v0.2-q6_K',
-    'falcon:40b-instruct-q5_1',
-    'gemma:7b-instruct-q6_K',
-    'llama2:70b-chat-q6_K',
-])
-
+export const getModels = () => (
+    fetch("https://inf.cl.uni-trier.de/models/", {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        },
+        mode: "cors",
+        cache: "no-cache",
+    })
+        .then((response) => response.json())
+        .then((result) => result.map(model => model.id))
+)
+        
 export const getDefaultPrompt = () => (`
 I want you to act as a social media user. You will engage in political and social discussions using an informal tone and brief sentences.
 

@@ -3,7 +3,7 @@ import {getDefaultPrompt, getModels} from "@/data/config"
 
 export const getConfigStore = defineStore('config', {
     state: () => ({
-        model: getModels()[0],
+        model: 'llama3.1:8b-instruct-q6_K',
         prompt: getDefaultPrompt()
     }),
     getters: {
@@ -21,8 +21,8 @@ export const getConfigStore = defineStore('config', {
         replacePrompt(newPrompt) {
             this.prompt = newPrompt
         },
-        reset() {
-            this.model = getModels()[0]
+        async reset() {
+            this.model = await getModels()[0]
             this.prompt = getDefaultPrompt()
         }
     },

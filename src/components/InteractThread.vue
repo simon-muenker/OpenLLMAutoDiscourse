@@ -28,6 +28,7 @@
         :icon="item.icon"
         :name="item.name"
         :text="item.message"
+        :metrics="item.metrics"
     />
   </template>
 </template>
