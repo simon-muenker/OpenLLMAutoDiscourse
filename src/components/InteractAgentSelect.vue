@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-2 items-start">
     <template v-for="element in agents">
-      <Message
+      <ThreadItem
           :id="element.id"
           :class="{ '!bg-green-200': getThreadStore().getAgents.has(element) }"
           :icon="element.icon"
@@ -19,11 +19,11 @@ import {getAgentsStore} from "@/stores/agents"
 import {getThreadStore} from "@/stores/thread"
 
 
-import Message from "@/components/InteractThreadItem.vue"
+import ThreadItem from "@/components/InteractThreadItem.vue"
 
 export default {
   components: {
-    Message
+    ThreadItem
   },
   data() {
     return {

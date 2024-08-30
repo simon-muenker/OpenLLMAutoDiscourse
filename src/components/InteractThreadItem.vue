@@ -6,38 +6,28 @@
       </div>
     </div>
     <div>
-    <span class="block font-light text-sm mb-1">
-      <span class="font-bold pr-1">{{ name }}</span>
-      <span class="text-slate-500">@{{ id }}</span>
-    </span>
+      <span class="block font-light text-sm mb-1">
+        <span class="font-bold pr-1">{{ name }}</span>
+        <span class="text-slate-500">@{{ id }}</span>
+      </span>
       <template v-if="!text">
         <span class="font-bold animate-pulse">...</span>
       </template>
       <span>
-      {{ text }}
-    </span>
-    <div class="mt-2 p-2 bg-rose-100 rounded-md" v-if="metrics">
-      <span>metrics</span>
-      <template v-for="(preds, label) in metrics">
-        <div class="mb-2">
-        <span class="block text-sm">{{ label }}</span>
-        <template v-for="(pred, name) in preds">
-          <div class="flex flex-row mb-1.5">
-            <div class="w-full bg-transparent rounded-full">
-              <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 py-1 rounded-full" :style="{width: pred * 100 + '%'}"> 
-                {{ name.toLowerCase() }} : {{ (pred * 100).toFixed(2) }} % 
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
-    </template>
-    </div>
+        {{ text }}
+      </span>
+      <InteractThreadItemMetrics :metrics="metrics" v-if="metrics" />
     </div>
   </div>
 </template>
 <script>
+
+import InteractThreadItemMetrics from "@/components/InteractThreadItemMetrics.vue"  
+
 export default {
+  components: {
+    InteractThreadItemMetrics
+  },
   props: {
     id: String,
     name: String,
