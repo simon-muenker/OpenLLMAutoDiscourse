@@ -16,9 +16,21 @@
       <span>
       {{ text }}
     </span>
-    <div class="text-sm mt-2">
-      <template v-for="item in metrics">
-      {{ item }}<br>
+    <div class="mt-2 p-2 bg-rose-100 rounded-md" v-if="metrics">
+      <span>metrics</span>
+      <template v-for="(preds, label) in metrics">
+        <div class="mb-2">
+        <span class="block text-sm">{{ label }}</span>
+        <template v-for="(pred, name) in preds">
+          <div class="flex flex-row mb-1.5">
+            <div class="w-full bg-transparent rounded-full">
+              <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 py-1 rounded-full" :style="{width: pred * 100 + '%'}"> 
+                {{ name.toLowerCase() }} : {{ (pred * 100).toFixed(2) }} % 
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
     </template>
     </div>
     </div>
