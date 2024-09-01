@@ -1,13 +1,13 @@
-import {defineStore} from "pinia"
-import _ from "lodash"
+import { defineStore } from 'pinia'
+import _ from 'lodash'
 
-import {postChat, postMetrics} from "@/api"
-import createPrompt from "@/prompt"
+import { postChat, postMetrics } from '@/api'
+import createPrompt from '@/prompt'
 
 export const getThreadStore = defineStore('thread', {
     state: () => ({
         agents: new Set(),
-        thread: []
+        thread: [],
     }),
     getters: {
         getAgents: (state) => state.agents,
@@ -23,41 +23,40 @@ export const getThreadStore = defineStore('thread', {
             }
 
             return agent
-        }
+        },
     },
     actions: {
         updateAgents(agent) {
             if (this.agents.has(agent)) {
                 this.agents.delete(agent)
-
             } else {
                 this.agents.add(agent)
             }
         },
-        addPost(id, name, icon, message, metrics=null) {
+        addPost(id, name, icon, message, metrics = null) {
             this.thread.push({
-                'id': id,
-                'name': name,
-                'icon': icon,
-                'message': message,
-                'metrics': metrics
+                id: id,
+                name: name,
+                icon: icon,
+                message: message,
+                metrics: metrics,
             })
         },
         async queryNextPost(model, agent) {
-            let message = await postChat(model, agent.persona.trim(), createPrompt(this.getThread, agent)).then(response => response.response)
-            let met = await postMetrics([message]).then(response => response['predictions'][0]['results'])
-
-            this.addPost(
-                agent.id,
-                agent.name,
-                agent.icon,
-                message,
-                met
+            let message = await postChat(
+                model,
+                agent.persona.trim(),
+                createPrompt(this.getThread, agent),
+            ).then((response) => response.response)
+            let met = await postMetrics([message]).then(
+                (response) => response['predictions'][0]['results'],
             )
+
+            this.addPost(agent.id, agent.name, agent.icon, message, met)
         },
         reset() {
             this.agents = new Set()
             this.thread = []
-        }
+        },
     },
 })

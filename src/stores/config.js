@@ -1,19 +1,18 @@
-import {defineStore} from "pinia"
+import { defineStore } from 'pinia'
 
-import { getModels } from "@/api"
-import {getDefaultPrompt} from "@/data/prompt"
-
+import { getModels } from '@/api'
+import { getDefaultPrompt } from '@/data/prompt'
 
 export const getConfigStore = defineStore('config', {
     state: () => ({
-        model: "",
-        prompt: "",
+        model: '',
+        prompt: '',
         model_selection: [],
     }),
     getters: {
         getConfig: (state) => ({
-            "model": state.model,
-            "prompt": state.prompt
+            model: state.model,
+            prompt: state.prompt,
         }),
         getModel: (state) => state.model,
         getPrompt: (state) => state.prompt,
@@ -21,13 +20,12 @@ export const getConfigStore = defineStore('config', {
     },
     actions: {
         init() {
-            console.debug(">> init config store")
-            getModels()
-                .then(res => {
-                    this.model_selection = res
-                    console.debug(">> model selection retrieved")
-                    this.setModel(this.model_selection[0].id) 
-                })
+            console.debug('>> init config store')
+            getModels().then((res) => {
+                this.model_selection = res
+                console.debug('>> model selection retrieved')
+                this.setModel(this.model_selection[0].id)
+            })
 
             this.prompt = getDefaultPrompt()
         },
@@ -40,6 +38,6 @@ export const getConfigStore = defineStore('config', {
         },
         async reset() {
             this.init()
-        }
+        },
     },
 })

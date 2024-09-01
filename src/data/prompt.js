@@ -1,4 +1,5 @@
-export const getDefaultPrompt = () => (`
+export const getDefaultPrompt = () =>
+    `
 Your recent interactions in the thread are as follows:
 
 {history}
@@ -8,4 +9,4 @@ Reply to the following while considering your history and character. Hide your p
 {thread}
 
 Response:
-`.trim())
+`.trim()

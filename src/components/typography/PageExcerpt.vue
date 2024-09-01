@@ -1,10 +1,10 @@
 <template>
-  <p class="sm:text-xl font-normal text-slate-600 leading-relaxed">
-    <slot></slot>
-  </p>
+    <p class="sm:text-xl font-normal text-slate-600 leading-relaxed">
+        <slot></slot>
+    </p>
 </template>
 <script>
 export default {
-  name: "PageExcerpt",
+    name: 'PageExcerpt',
 }
 </script>

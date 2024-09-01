@@ -1,16 +1,16 @@
 <template>
-  <button
-      :class="[
-          'cursor-pointer',
-          'hover:opacity-60 transition-opacity',
-          'disabled:opacity-40 disabled:cursor-not-allowed',
-      ]"
-  >
-    <slot></slot>
-  </button>
+    <button
+        :class="[
+            'cursor-pointer',
+            'hover:opacity-60 transition-opacity',
+            'disabled:opacity-40 disabled:cursor-not-allowed',
+        ]"
+    >
+        <slot></slot>
+    </button>
 </template>
 <script>
 export default {
-  name: 'Button',
+    name: 'Button',
 }
 </script>
