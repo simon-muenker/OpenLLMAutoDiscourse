@@ -1,6 +1,6 @@
 <template>
     <Floater class="mb-4">
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+        <div class="flex flex-row gap-3">
             <Textarea
                 :value="message"
                 placeholder="type our message"

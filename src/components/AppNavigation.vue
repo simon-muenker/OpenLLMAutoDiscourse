@@ -1,7 +1,7 @@
 <template>
     <div class="block h-28"></div>
     <div class="fixed z-50 bottom-4 w-full">
-        <Container class="w-1/3">
+        <Container class="w-2/3 sm:w-1/3">
             <nav
                 class="flex flex-row justify-evenly items-center gap-4 mx-auto w-full"
             >

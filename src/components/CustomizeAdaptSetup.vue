@@ -31,7 +31,7 @@
             >Replace Agent list (JSON file, see More Information)</Caption
         >
         <Floater>
-            <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex flex-row gap-3">
                 <input
                     accept=".json"
                     class="block grow w-full text-sm text-slate-500 rounded-lg px-2 p-x-2.5 py-3.5 cursor-pointer bg-slate-100 file:bg-transparent file:border-0"

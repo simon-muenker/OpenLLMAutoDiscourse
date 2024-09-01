@@ -28,7 +28,7 @@
             />
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-end items-center">
+        <div class="flex flex-row gap-3 items-center">
             <Textarea
                 class="!bg-slate-100 rounded-lg p-2.5"
                 :value="persona"
