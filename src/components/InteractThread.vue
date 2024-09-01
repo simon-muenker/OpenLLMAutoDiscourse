@@ -10,9 +10,7 @@
     </div>
   </div>
 
-  <p class="text-lg">
-    {{ post.message }}
-  </p>
+  <PageExcerpt>{{ post.message }}</PageExcerpt>
 
   <div class="text-slate-500">
     {{ timestamp }}
@@ -36,6 +34,8 @@
 <script>
 import _ from "lodash"
 
+import PageExcerpt from "@/components/typography/PageExcerpt.vue"
+
 import {getFormattedDate} from "@/common"
 import {getThreadStore} from "@/stores/thread"
 
@@ -43,6 +43,7 @@ import ThreadItem from "@/components/InteractThreadItem.vue"
 
 export default {
   components: {
+    PageExcerpt,
     ThreadItem
   },
   computed: {

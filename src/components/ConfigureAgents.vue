@@ -7,17 +7,14 @@
         :class="{ '!border-green-400': getThreadStore().getAgents.has(element) }"
          @click="() => toggle(element)"
       >
-        <div>
-          <div class="text-3xl p-1 h-12 w-12 text-center">
+        <div class="text-3xl p-1 h-12 w-12 text-center">
             {{ element.icon }}
-          </div>
         </div>
         <div>
-          <span class="block font-light text-sm mb-1">
-            <span class="font-bold pr-1">{{ element.name }}</span>
-            <span class="text-slate-500">@{{ element.id }}</span>
-          </span>
-          <span> {{ element.summary }} </span>
+          <TextExtraBold class="mr-1">{{ element.name }}</TextExtraBold>&nbsp;
+          <Caption>@{{ element.id }}</Caption>
+          <br>
+          <Text> {{ element.summary }} </Text>
         </div>
       </Floater>
     </template>
@@ -28,13 +25,20 @@
 import {getAgentsStore} from "@/stores/agents"
 import {getThreadStore} from "@/stores/thread"
 
+import Caption from "./typography/Caption.vue"
+import Text from "./typography/Text.vue"
+import TextExtraBold from "./typography/TextExtraBold.vue"
+
 import Floater from "@/components/atoms/Floater.vue"
 
 
 export default {
   name: "ConfigureModel",
     components: {
-      Floater
+      Floater,
+      Text,
+      TextExtraBold,
+      Caption
     },
   data() {
     return {

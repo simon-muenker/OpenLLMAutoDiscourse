@@ -1,8 +1,8 @@
 <template>
     <div class="mt-2 p-2">
       <template v-for="(preds, label) in collated_metrics">
-        <div class="mb-2" v-if="Object.keys(preds).length > 0">
-          <span class="block text-sm mb-0.5">{{ label }}</span>
+        <div class="mr-1 mb-2" v-if="Object.keys(preds).length > 0">
+          <Caption class="block mb-0.5">{{ label }}</Caption>
           <template v-for="(pred, name) in preds">
             <ProgressBar :label="name" :percentage="pred" class="mb-2"/>
           </template>
@@ -12,11 +12,14 @@
 </template>
 
 <script>
+import Caption from "./typography/Caption.vue"
+
 import ProgressBar from "@/components/atoms/ProgressBar.vue"
 
 export default {
     components: {
-        ProgressBar
+      Caption,
+      ProgressBar
   },
   props: {
     metrics: Object,
