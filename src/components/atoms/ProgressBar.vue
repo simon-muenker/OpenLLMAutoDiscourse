@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: "ProgressBar",
   props: {
     label: String,
     percentage: Number,

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex gap-4 text-slate-700 bg-slate-100 rounded-lg p-3 transition-colors">
+  <div class="flex gap-4 p-3">
     <div>
-      <div class="text-3xl bg-slate-200 rounded-full p-1 h-12 w-12 text-center">
+      <div class="text-3xl p-1 h-12 w-12 text-center">
         {{ icon }}
       </div>
     </div>
@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-
 import InteractThreadItemMetrics from "@/components/InteractThreadItemMetrics.vue"  
+
 
 export default {
   components: {

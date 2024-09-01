@@ -1,7 +1,7 @@
 import {defineStore} from "pinia"
 import _ from "lodash"
 
-import {inference, metrics} from "@/inference"
+import {postChat, postMetrics} from "@/api"
 import createPrompt from "@/prompt"
 
 export const getThreadStore = defineStore('thread', {
@@ -44,8 +44,8 @@ export const getThreadStore = defineStore('thread', {
             })
         },
         async queryNextPost(model, agent) {
-            let message = await inference(model, createPrompt(this.getThread, agent)).then(response => response.response)
-            let met = await metrics([message]).then(response => response['predictions'][0]['results'])
+            let message = await postChat(model, agent.persona.trim(), createPrompt(this.getThread, agent)).then(response => response.response)
+            let met = await postMetrics([message]).then(response => response['predictions'][0]['results'])
 
             this.addPost(
                 agent.id,

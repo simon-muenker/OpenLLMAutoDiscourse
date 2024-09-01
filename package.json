@@ -10,7 +10,9 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@huggingface/inference": "^2.6.4",
+    "axios": "^1.7.7",
     "file-saver": "^2.0.5",
+    "heroicons": "^2.1.5",
     "lodash": "^4.17.21",
     "openai": "^4.20.0",
     "pinia": "^2.1.7",

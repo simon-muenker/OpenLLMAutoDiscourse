@@ -1,6 +1,6 @@
 <template>
 
-  <PageHead>Customize</PageHead>
+  <PageHeadline>Customize</PageHeadline>
 
   <Divider/>
 
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import PageHead from "@/components/atoms/PageHead.vue"
+import PageHeadline from "@/components/typography/PageHeadline.vue";
 import Divider from "@/components/atoms/Divider.vue"
 
 import CustomizeAddAgent from "@/components/CustomizeAddAgent.vue"

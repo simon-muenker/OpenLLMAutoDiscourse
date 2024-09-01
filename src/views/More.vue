@@ -1,6 +1,6 @@
 <template>
 
-  <PageHead>Information</PageHead>
+  <PageHeadline>Information</PageHeadline>
 
   <PageExcerpt>
     The page contains the configuration for the API interaction (hugging face) and prompt/agent templates.
@@ -8,7 +8,7 @@
 
   <Divider/>
 
-  <ContentHead>
+  <SectionHeadline>
     Inference Configuration
     <span
         class="cursor-pointer text-lg font-light text-slate-500"
@@ -16,12 +16,12 @@
     >
       (download)
     </span>
-  </ContentHead>
+  </SectionHeadline>
   <vue-json-pretty :data="getConfigStore().getConfig"/>
 
   <Divider/>
 
-  <ContentHead>
+  <SectionHeadline>
     Agent Configuration
     <span
         class="cursor-pointer text-lg font-light text-slate-500"
@@ -29,7 +29,7 @@
     >
       (download)
     </span>
-  </ContentHead>
+  </SectionHeadline>
   <vue-json-pretty :data="getAgentsStore().getAgents"/>
 
 </template>
@@ -38,9 +38,10 @@
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 
-import PageHead from "@/components/atoms/PageHead.vue"
-import PageExcerpt from "@/components/atoms/PageExcerpt.vue"
-import ContentHead from "@/components/atoms/ContentHead.vue"
+import PageHeadline from '@/components/typography/PageHeadline.vue'
+import PageExcerpt from "@/components/typography/PageExcerpt.vue"
+import SectionHeadline from "@/components/typography/SectionHeadline.vue"
+
 import Divider from "@/components/atoms/Divider.vue"
 
 import {getConfigStore} from "@/stores/config"

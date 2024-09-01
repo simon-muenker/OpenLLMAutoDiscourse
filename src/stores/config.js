@@ -1,10 +1,14 @@
 import {defineStore} from "pinia"
-import {getDefaultPrompt, getModels} from "@/data/config"
+
+import { getModels } from "@/api"
+import {getDefaultPrompt} from "@/data/prompt"
+
 
 export const getConfigStore = defineStore('config', {
     state: () => ({
-        model: 'llama3.1:8b-instruct-q6_K',
-        prompt: getDefaultPrompt()
+        model: "",
+        prompt: "",
+        model_selection: [],
     }),
     getters: {
         getConfig: (state) => ({
@@ -13,17 +17,29 @@ export const getConfigStore = defineStore('config', {
         }),
         getModel: (state) => state.model,
         getPrompt: (state) => state.prompt,
+        getModelSelection: (state) => state.model_selection,
     },
     actions: {
-        replaceModel(model) {
-            this.model = model
+        init() {
+            console.debug(">> init config store")
+            getModels()
+                .then(res => {
+                    this.model_selection = res
+                    console.debug(">> model selection retrieved")
+                    this.setModel(this.model_selection[0].id) 
+                })
+
+            this.prompt = getDefaultPrompt()
+        },
+        setModel(newModel) {
+            this.model = newModel
+            console.debug(`>> active model set to: ${this.model}`)
         },
         replacePrompt(newPrompt) {
             this.prompt = newPrompt
         },
         async reset() {
-            this.model = await getModels()[0]
-            this.prompt = getDefaultPrompt()
+            this.init()
         }
     },
 })

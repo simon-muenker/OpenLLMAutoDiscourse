@@ -1,17 +1,18 @@
 <template>
   <textarea
       ref="self"
-      class="grow p-2.5 text-slate-700 bg-slate-100 rounded-md border-0 resize-none"
+      class="bg-transparent grow p-1 text-slate-700 resize-none focus:outline-0"
       @input="update"
   ></textarea>
 </template>
 
 <script>
 export default {
+  name: 'Textarea',
   props: {
     initialHeight: {
       type: Number,
-      default: 72
+      default: 72,
     }
   },
   mounted() {

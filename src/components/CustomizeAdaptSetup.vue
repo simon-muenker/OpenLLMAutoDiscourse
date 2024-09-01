@@ -1,59 +1,50 @@
 <template>
-  <ContentHead>Customize model/prompt or replace agents:</ContentHead>
-  <ContentLine>
-    Customize the conversation and change the LLM and base prompt, or upload a custom JSON file containing a list of new
-    agents. Use the full Hugging Face name and check if the model is available under the free inferencing API. The
-    default agent list can be downloaded on the More Information page and suits as a template for customization.
-  </ContentLine>
+  <SectionHeadline>Customize prompt or upload agents:</SectionHeadline>
+  <SectionExcerpt>
+    Customize the conversation prompt template, or upload a custom JSON file containing a list of new
+    agents. The default agent list can be downloaded on the More Information page and suits as a template for customization.
+  </SectionExcerpt>
 
-  <div class="flex flex-col gap-3">
-
-    <div class="flex flex-col grow">
-      <InputLabel>Change Model:</InputLabel>
-
-      <select
-          v-model="model"
-          class="rounded-lg p-2.5 text-slate-700 bg-slate-100 cursor-pointer leading-loose"
-          @change="(event) => getConfigStore().replaceModel(event.target.value)"
-      >
-        <option v-for="model in model_selection" :value="model">
-          {{ model }}
-        </option>
-      </select>
-
-    </div>
-
-    <div class="flex flex-col grow">
-      <InputLabel>Change Prompt (must contain <code>{persona}|{text}</code> to replace):</InputLabel>
+  <div>
+    <Caption class="block ml-1 mb-2">Change Prompt (must contain <code>{history}</code> and  <code>{thread}</code>):</Caption>
+    <Floater>
       <Textarea
+          class="w-full"
           :value="getConfigStore().getPrompt"
           @input="(event) => getConfigStore().replacePrompt(event.target.value)"
-      />
-    </div>
+      ></Textarea>
+    </Floater>
+  </div>
 
-    <div class="flex flex-col grow">
-      <InputLabel>Replace Agent list (JSON file, see More Information)</InputLabel>
+  <Spacer size="tiny" />
+
+  <div>
+    <Caption class="block ml-1 mb-2">Replace Agent list (JSON file, see More Information)</Caption>
+    <Floater>
       <div class="flex flex-col sm:flex-row gap-3">
-        <div class="grow">
-          <input
+        <input
               accept=".json"
-              class="block w-full text-sm text-slate-500 border border-slate-300 rounded-lg px-2 p-x-2.5 py-3.5 cursor-pointer bg-slate-100 file:bg-transparent file:border-0"
+              class="block grow w-full text-sm text-slate-500 rounded-lg px-2 p-x-2.5 py-3.5 cursor-pointer bg-slate-100 file:bg-transparent file:border-0"
               label="Agent JSON Upload"
               type="file"
               @change="uploadAgents($event)">
-        </div>
-        <Button :disabled="!hasNewAgents" @click="replaceAgents()">Replace Agents</Button>
+        <Button 
+          :disabled="!hasNewAgents" 
+          @click="replaceAgents()"
+          >
+            <ArrowUpTrayIcon class="h-8 w-8 text-gray-600"/>
+        </Button>
       </div>
-    </div>
-
+    </Floater>
   </div>
+
 </template>
 
 <script>
-import ContentHead from "@/components/atoms/ContentHead.vue"
-import ContentLine from "@/components/atoms/ContentLine.vue"
+import SectionHeadline from "@/components/typography/SectionHeadline.vue"
+import SectionExcerpt from "@/components/typography/SectionExcerpt.vue"
+
 import Input from "@/components/atoms/Input.vue"
-import InputLabel from "@/components/atoms/InputLabel.vue"
 import Textarea from "@/components/atoms/Textarea.vue"
 import Button from "@/components/atoms/Button.vue"
 
@@ -61,31 +52,34 @@ import {getConfigStore} from "@/stores/config"
 import {getAgentsStore} from "@/stores/agents"
 
 import {uploadJSON} from "@/common"
-import {getModels} from "@/data/config"
+import Floater from "./atoms/Floater.vue"
+import Caption from "@/components/typography/Caption.vue"
+import Spacer from "./atoms/Spacer.vue"
+
+import { ArrowUpTrayIcon } from "@heroicons/vue/24/outline"
 
 export default {
   components: {
-    InputLabel,
-    ContentLine,
-    ContentHead,
+    Caption,
+    SectionExcerpt,
+    SectionHeadline,
     Input,
     Textarea,
     Button,
+    Spacer,
+    Floater,
+    ArrowUpTrayIcon
   },
   data() {
     return {
       newAgents: [],
-      model: getConfigStore().getModel,
-      model_selection: []
+      model: getConfigStore().getModel
     }
   },
   computed: {
     hasNewAgents() {
       return this.newAgents.length > 0
     }
-  },
-  async mounted() {
-    this.model_selection = await getModels()
   },
   methods: {
     async uploadAgents(event) {
@@ -98,7 +92,6 @@ export default {
       }
     },
     getConfigStore,
-    getModels
   }
 }
 </script>

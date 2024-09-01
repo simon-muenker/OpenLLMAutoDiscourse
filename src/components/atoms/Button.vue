@@ -1,13 +1,16 @@
 <template>
   <button
       :class="[
-          'font-medium sm:text-lg text-white',
-          'px-6 py-3 rounded-full bg-sky-500',
-          'hover:opacity-60',
-          'disabled:opacity-25 disabled:cursor-not-allowed',
-          'transition-opacity',
+          'cursor-pointer',
+          'hover:opacity-60 transition-opacity',
+          'disabled:opacity-40 disabled:cursor-not-allowed',
       ]"
   >
     <slot></slot>
   </button>
 </template>
+<script>
+export default {
+  name: 'Button',
+}
+</script>

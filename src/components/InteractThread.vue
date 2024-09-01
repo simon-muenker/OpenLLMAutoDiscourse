@@ -1,7 +1,7 @@
 <template>
 
   <div class="flex gap-2 items-center">
-    <div class="text-4xl bg-blue-100 rounded-full p-2 h-16 w-16 text-center">
+    <div class="text-4xl p-2 h-16 w-16 text-center">
       {{ post.icon }}
     </div>
     <div>

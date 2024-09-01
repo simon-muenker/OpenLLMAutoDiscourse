@@ -9,7 +9,7 @@ export const getExamplePosts = () => ([
     },
     {
         name: 'Biden Student Debts',
-        message: 'Under my Administration, we’ve approved $144 billion in student debt cancellation for nearly four million Americans through various actions.'
+        message: 'Under my Administration, we\'ve approved $144 billion in student debt cancellation for nearly four million Americans through various actions.'
     },
     {
         name: 'Musk on US Immigration',

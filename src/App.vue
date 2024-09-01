@@ -1,16 +1,32 @@
 <template>
-  <div class="my-8 pb-20">
+  <div class="bg-slate-100 shadow-inner">
     <Container>
       <RouterView/>
-      <PageFooter/>
     </Container>
+
+    <AppFooter/>
+    <AppNavigation />
   </div>
-  <PageNavigation />
 </template>
 
-<script setup>
+<script>
+import {getConfigStore} from "@/stores/config"
+
 import {RouterView} from "vue-router"
 import Container from "@/components/atoms/Container.vue"
-import PageFooter from "@/components/PageFooter.vue"
-import PageNavigation from "@/components/PageNavigation.vue"
+import AppNavigation from "@/components/AppNavigation.vue"
+import AppFooter from "@/components/AppFooter.vue"
+
+export default {
+  name: 'App',
+  components: {
+    RouterView,
+    Container,
+    AppFooter,
+    AppNavigation,
+  },
+  mounted() {
+    getConfigStore().init()
+  }
+}
 </script>

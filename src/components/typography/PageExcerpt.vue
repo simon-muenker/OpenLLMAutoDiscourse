@@ -3,3 +3,8 @@
     <slot></slot>
   </p>
 </template>
+<script>
+export default {
+  name: "PageExcerpt",
+}
+</script>

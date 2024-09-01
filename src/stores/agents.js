@@ -1,7 +1,7 @@
 import {defineStore} from "pinia"
 import getDefaultAgents from "@/data/agents"
 
-export const getAgentsStore = defineStore('agents', {
+export const getAgentsStore = defineStore("agents", {
     state: () => ({
         agents: getDefaultAgents()
     }),

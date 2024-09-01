@@ -1,15 +1,14 @@
 <template>
-    <div class="mt-2 p-2 bg-teal-50 rounded-md">
-        <span class="mb-2">metrics</span>
-        <template v-for="(preds, label) in collated_metrics">
-          <div class="mb-2" v-if="Object.keys(preds).length > 0">
-            <span class="block text-sm mb-0.5">{{ label }}</span>
-            <template v-for="(pred, name) in preds">
-              <ProgressBar :label="name" :percentage="pred" class="mb-2"/>
-            </template>
-          </div>
-        </template>
-      </div>
+    <div class="mt-2 p-2">
+      <template v-for="(preds, label) in collated_metrics">
+        <div class="mb-2" v-if="Object.keys(preds).length > 0">
+          <span class="block text-sm mb-0.5">{{ label }}</span>
+          <template v-for="(pred, name) in preds">
+            <ProgressBar :label="name" :percentage="pred" class="mb-2"/>
+          </template>
+        </div>
+      </template>
+    </div>
 </template>
 
 <script>
