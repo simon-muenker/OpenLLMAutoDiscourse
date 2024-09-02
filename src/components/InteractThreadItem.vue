@@ -3,7 +3,7 @@
         <div class="text-3xl p-1 h-12 w-12 text-center">
             {{ icon }}
         </div>
-        <div>
+        <div class="grow">
             <TextExtraBold class="mr-1">{{ name }}</TextExtraBold
             >&nbsp;
             <Caption>@{{ id }}</Caption>
