@@ -1,11 +1,10 @@
 <template>
     <div class="flex gap-4 p-3">
-        <div class="text-3xl p-1 h-12 w-12 text-center">
+        <div class="text-3xl p-1 text-center">
             {{ icon }}
         </div>
         <div class="grow">
-            <TextExtraBold class="mr-1">{{ name }}</TextExtraBold
-            >&nbsp;
+            <TextExtraBold class="mr-1">{{ name }}</TextExtraBold>
             <Caption>@{{ id }}</Caption>
             <br />
             <Text>{{ text }}</Text>

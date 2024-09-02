@@ -10,14 +10,11 @@
                 }"
                 @click="() => toggle(element)"
             >
-                <div class="text-3xl p-1 h-12 w-12 text-center">
+                <div class="text-3xl p-1 text-center">
                     {{ element.icon }}
                 </div>
                 <div>
-                    <TextExtraBold class="mr-1">{{
-                        element.name
-                    }}</TextExtraBold
-                    >&nbsp;
+                    <TextExtraBold class="mr-1">{{ element.name }}</TextExtraBold>
                     <Caption>@{{ element.id }}</Caption>
                     <br />
                     <Text> {{ element.summary }} </Text>

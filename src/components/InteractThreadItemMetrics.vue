@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-2 p-2">
+    <div class="mt-2">
         <template v-for="(preds, label) in collated_metrics">
             <div class="mr-1 mb-2" v-if="Object.keys(preds).length > 0">
                 <Caption class="block mb-0.5">{{ label }}</Caption>
